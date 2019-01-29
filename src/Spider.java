@@ -38,7 +38,7 @@ public class Spider {
             //System.out.println(times);
             String[] buyTime=new String[]{"昨日19:00","昨日21:00","08:30","9:00","10:00","11:00","12:00","13:00","14:00","16:00","17:00","19:00","21:00","明天"};
             //循环取出所有页数数据。
-            for (int k = 2; k <= 14; k++) {
+            for (int k = 2; k <= 15; k++) {
                 page=0;
                 System.out.println("抢购时间："+ buyTime[k-2] +"\r\n");
                 while (true) {

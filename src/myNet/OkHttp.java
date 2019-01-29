@@ -27,6 +27,12 @@ public class OkHttp {
         return null;
     }
 
+    /**
+     * get请求，参数可以直接定义在url里。
+     * @param url
+     * @param header 自定义报头，可为空。
+     * @return
+     */
     public String goGet(String url, HashMap<String,String> header){
 
         OkHttpClient client = new OkHttpClient();
