@@ -29,7 +29,7 @@ public class Spider {
         int page = 0;
 
         System.out.println("开始抓取！");
-
+        System.out.println("名称|简介|现价|原价");
         //先取出所有抢购时间
         //ret = nets.goPost("m.yunjiglobal.com", 443, getTime());
         ret= okHttp.goGet("https://m.yunjiglobal.com/yunjibuyer/queryAllActivityTimesList.json",null);
@@ -55,7 +55,7 @@ public class Spider {
                         ArrayList<String> price = MyUtil.midWordAll("itemVipPrice\":", ",\"", ret);
                         if (name.size() != 0) {
                             for (int i = 0; i < name.size(); i++) {
-                                System.out.println("名称：" + name.get(i) + ": 简介：" + spot.get(i) + "：现价：" + nowprice.get(i) + ":原价：" + price.get(i));
+                                System.out.println( name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i));
                             }
                             page++;
                         }
