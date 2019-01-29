@@ -1,5 +1,6 @@
 import myNet.Nets;
 import myNet.OkHttp;
+import utils.ExcelUtils;
 import utils.MyUtil;
 
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ public class Spider {
 
 
     public static void main(String[] arg) {
-        getDetail();
-
+       getDetail();
+        //ExcelUtils.writeExcel("test.xlsx",new String[]{"1|1|1","2|2|2|2","3|2|2|3|3"});
     }
 
 
@@ -29,6 +30,8 @@ public class Spider {
         int page = 0;
 
         System.out.println("开始抓取！");
+        ArrayList<String> list=new ArrayList<>();
+        list.add("名称|简介|现价|原价");
         System.out.println("名称|简介|现价|原价");
         //先取出所有抢购时间
         //ret = nets.goPost("m.yunjiglobal.com", 443, getTime());
@@ -40,7 +43,8 @@ public class Spider {
             //循环取出所有页数数据。
             for (int k = 2; k <= 15; k++) {
                 page=0;
-                System.out.println("抢购时间："+ buyTime[k-2] +"\r\n");
+                list.add("抢购时间："+ buyTime[k-2]);
+               // System.out.println("抢购时间："+ buyTime[k-2] +"\r\n");
                 while (true) {
 
                     //ret = nets.goPost("m.yunjiglobal.com", 443, DetailData(times.get(k), String.valueOf(page)));
@@ -55,7 +59,8 @@ public class Spider {
                         ArrayList<String> price = MyUtil.midWordAll("itemVipPrice\":", ",\"", ret);
                         if (name.size() != 0) {
                             for (int i = 0; i < name.size(); i++) {
-                                System.out.println( name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i));
+                                list.add(name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i));
+                               // System.out.println( name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i));
                             }
                             page++;
                         }
@@ -64,7 +69,7 @@ public class Spider {
             }
         }
 
-
+        ExcelUtils.writeExcel("test.xlsx",list);
         System.out.println("结束抓取！");
     }
 
