@@ -3,7 +3,9 @@ import myNet.OkHttp;
 import utils.ExcelUtils;
 import utils.MyUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * 友米乐公司爬虫工具类
@@ -13,8 +15,17 @@ public class Spider {
 
 
     public static void main(String[] arg) {
-       getDetail();
+       //getDetail();
         //ExcelUtils.writeExcel("test.xlsx",new String[]{"1|1|1","2|2|2|2","3|2|2|3|3"});
+
+        String date=MyUtil.getDate("MM");
+        if(date.equals("01")||date.equals("02")){
+            getDetail();
+        }else{
+            ArrayList<String> list=new ArrayList();
+            list.add("出错了！");
+            ExcelUtils.writeExcel("云集抢购数据（"+ MyUtil.getDate("dd")+"）.xlsx",list);
+        }
     }
 
 
@@ -38,13 +49,14 @@ public class Spider {
         ret= okHttp.goGet("https://m.yunjiglobal.com/yunjibuyer/queryAllActivityTimesList.json",null);
         if (!MyUtil.isEmpty(ret)) {
             times = MyUtil.midWordAll("activityTimesId\":", ",\"", ret);
+            ArrayList buyTime=MyUtil.midWordAll("startTime\":",",\"",ret);
             //System.out.println(times);
-            String[] buyTime=new String[]{"昨日19:00","昨日21:00","08:30","9:00","10:00","11:00","12:00","13:00","14:00","16:00","17:00","19:00","21:00","明天"};
+            //String[] buyTime=new String[]{"昨日19:00","昨日21:00","08:30","9:00","10:00","11:00","12:00","13:00","14:00","16:00","17:00","19:00","21:00","明天"};
             //循环取出所有页数数据。
-            for (int k = 2; k <= 15; k++) {
+            for (int k = 2; k < buyTime.size(); k++) {
                 page=0;
-                list.add("抢购时间："+ buyTime[k-2]);
-               // System.out.println("抢购时间："+ buyTime[k-2] +"\r\n");
+                list.add("抢购时间："+ MyUtil.timestampToDate(buyTime.get(k).toString()));
+                //System.out.println("抢购时间："+ MyUtil.timestampToDate(buyTime.get(k).toString()) +"\r\n");
                 while (true) {
 
                     //ret = nets.goPost("m.yunjiglobal.com", 443, DetailData(times.get(k), String.valueOf(page)));
@@ -60,7 +72,7 @@ public class Spider {
                         if (name.size() != 0) {
                             for (int i = 0; i < name.size(); i++) {
                                 list.add(name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i));
-                               // System.out.println( name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i));
+                                //System.out.println( name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i));
                             }
                             page++;
                         }
@@ -69,7 +81,7 @@ public class Spider {
             }
         }
 
-        ExcelUtils.writeExcel("test.xlsx",list);
+        ExcelUtils.writeExcel("云集抢购数据（"+ MyUtil.getDate("dd")+"）.xlsx",list);
         System.out.println("结束抓取！");
     }
 
