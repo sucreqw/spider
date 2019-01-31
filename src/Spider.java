@@ -6,6 +6,7 @@ import utils.MyUtil;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * 友米乐公司爬虫工具类
@@ -20,7 +21,11 @@ public class Spider {
 
         String date=MyUtil.getDate("MM");
         if(date.equals("01")||date.equals("02")){
-            getDetail();
+           // getDetail();
+            OkHttp okHttp=new OkHttp();
+            HashMap<String,String> map=new HashMap();
+            map.put("nick","test");
+           System.out.println( okHttp.goPost("http://127.0.0.1:8080/submit",null,map));
         }else{
             ArrayList<String> list=new ArrayList();
             list.add("出错了！");
@@ -46,7 +51,7 @@ public class Spider {
         System.out.println("名称|简介|现价|原价");
         //先取出所有抢购时间
         //ret = nets.goPost("m.yunjiglobal.com", 443, getTime());
-        ret= okHttp.goGet("https://m.yunjiglobal.com/yunjibuyer/queryAllActivityTimesList.json",null);
+        ret= okHttp.goGet("https://m.yunjiglobal.com/yunjibuyer/queryAllActivityTimesList.json");
         if (!MyUtil.isEmpty(ret)) {
             times = MyUtil.midWordAll("activityTimesId\":", ",\"", ret);
             ArrayList buyTime=MyUtil.midWordAll("startTime\":",",\"",ret);
@@ -56,11 +61,11 @@ public class Spider {
             for (int k = 2; k < buyTime.size(); k++) {
                 page=0;
                 list.add("抢购时间："+ MyUtil.timestampToDate(buyTime.get(k).toString()));
-                //System.out.println("抢购时间："+ MyUtil.timestampToDate(buyTime.get(k).toString()) +"\r\n");
+                System.out.println("抢购时间："+ MyUtil.timestampToDate(buyTime.get(k).toString()) +"\r\n");
                 while (true) {
 
                     //ret = nets.goPost("m.yunjiglobal.com", 443, DetailData(times.get(k), String.valueOf(page)));
-                    ret= okHttp.goGet("https://m.yunjiglobal.com/yunjibuyer/queryItemListByTimesId.json?activityTimesId=" + times.get(k) + "&pageNo=" + String.valueOf(page) ,null);
+                    ret= okHttp.goGet("https://m.yunjiglobal.com/yunjibuyer/queryItemListByTimesId.json?activityTimesId=" + times.get(k) + "&pageNo=" + String.valueOf(page) );
                     if (!MyUtil.isEmpty(ret)) {
                         if (ret.indexOf("itemList\":[]") != -1) {
                             break;
@@ -72,7 +77,7 @@ public class Spider {
                         if (name.size() != 0) {
                             for (int i = 0; i < name.size(); i++) {
                                 list.add(name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i));
-                                //System.out.println( name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i));
+                                System.out.println( name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i));
                             }
                             page++;
                         }
@@ -81,7 +86,7 @@ public class Spider {
             }
         }
 
-        ExcelUtils.writeExcel("云集抢购数据（"+ MyUtil.getDate("dd")+"）.xlsx",list);
+       // ExcelUtils.writeExcel("云集抢购数据（"+ MyUtil.getDate("dd")+"）.xlsx",list);
         System.out.println("结束抓取！");
     }
 
