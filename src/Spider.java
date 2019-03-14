@@ -16,20 +16,29 @@ public class Spider {
 
 
     public static void main(String[] arg) {
-       //getDetail();
+        //getDetail();
         //ExcelUtils.writeExcel("test.xlsx",new String[]{"1|1|1","2|2|2|2","3|2|2|3|3"});
 
-        String date=MyUtil.getDate("MM");
-        if(date.equals("01")||date.equals("02")){
-           // getDetail();
-            OkHttp okHttp=new OkHttp();
+        String date = MyUtil.getDate("MM");
+        if (date.equals("03") || date.equals("04")) {
+            //System.out.println(MyUtil.timestampToDate("1551150000000"));
+            //云集数据。
+            // getDetail();
+            //取myzebravip数据
+            //myzebravip();
+
+            //取55海淘 优惠折扣
+            Haitao haitao=new Haitao();
+            haitao.getDiscount();
+
+            /*OkHttp okHttp=new OkHttp();
             HashMap<String,String> map=new HashMap();
-            map.put("nick","test");
-           System.out.println( okHttp.goPost("http://127.0.0.1:8080/submit",null,map));
-        }else{
-            ArrayList<String> list=new ArrayList();
+            map.put("nick","test");*/
+
+        } else {
+            ArrayList<String> list = new ArrayList();
             list.add("出错了！");
-            ExcelUtils.writeExcel("云集抢购数据（"+ MyUtil.getDate("dd")+"）.xlsx",list);
+            ExcelUtils.writeExcel("云集抢购数据（" + MyUtil.getDate("dd") + "）.xlsx", list);
         }
     }
 
@@ -39,33 +48,40 @@ public class Spider {
      */
     public static void getDetail() {
         Nets nets = new Nets();
-        OkHttp okHttp=new OkHttp();
+        OkHttp okHttp = new OkHttp();
         String ret = "";
         String time = "";
         ArrayList<String> times = null;
         int page = 0;
 
         System.out.println("开始抓取！");
-        ArrayList<String> list=new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
         list.add("名称|简介|现价|原价");
         System.out.println("名称|简介|现价|原价");
         //先取出所有抢购时间
         //ret = nets.goPost("m.yunjiglobal.com", 443, getTime());
-        ret= okHttp.goGet("https://m.yunjiglobal.com/yunjibuyer/queryAllActivityTimesList.json");
+        //                     https://m.yunjiglobal.com/yunjibuyer/queryAllActivityTimesList.json
+        ret = okHttp.goGet("https://m.yunjiglobal.com/yunjibuyer/queryAllActivityTimesList.json");
         if (!MyUtil.isEmpty(ret)) {
             times = MyUtil.midWordAll("activityTimesId\":", ",\"", ret);
-            ArrayList buyTime=MyUtil.midWordAll("startTime\":",",\"",ret);
+            ArrayList buyTime = MyUtil.midWordAll("startTime\":", ",\"", ret);
+            //ArrayList showTime=MyUtil.midWordAll("alias\":\"","\",\"",ret);
+            //ArrayList showTime2=MyUtil.midWordAll("dateTime\":\"","\",\"",ret);
             //System.out.println(times);
             //String[] buyTime=new String[]{"昨日19:00","昨日21:00","08:30","9:00","10:00","11:00","12:00","13:00","14:00","16:00","17:00","19:00","21:00","明天"};
             //循环取出所有页数数据。
             for (int k = 2; k < buyTime.size(); k++) {
-                page=0;
-                list.add("抢购时间："+ MyUtil.timestampToDate(buyTime.get(k).toString()));
-                System.out.println("抢购时间："+ MyUtil.timestampToDate(buyTime.get(k).toString()) +"\r\n");
+                page = 0;
+                list.add("抢购时间：" + MyUtil.timestampToDate(buyTime.get(k - 1).toString()));
+                //list.add("抢购时间："+ showTime.get(k-1).toString() + " " + showTime2.get(k-1).toString());//MyUtil.timestampToDate(buyTime.get(k).toString()));
+                System.out.println("抢购时间：" + MyUtil.timestampToDate(buyTime.get(k - 1).toString()) + "\r\n");
+                //System.out.println("抢购时间："+ showTime.get(k-1).toString() + " " + showTime2.get(k-1).toString());//MyUtil.timestampToDate(buyTime.get(k).toString()));
+
                 while (true) {
 
                     //ret = nets.goPost("m.yunjiglobal.com", 443, DetailData(times.get(k), String.valueOf(page)));
-                    ret= okHttp.goGet("https://m.yunjiglobal.com/yunjibuyer/queryItemListByTimesId.json?activityTimesId=" + times.get(k) + "&pageNo=" + String.valueOf(page) );
+                    //                     https://m.yunjiglobal.com/yunjibuyer/queryItemListByTimesId.json?activityTimesId=101892&pageNo=0
+                    ret = okHttp.goGet("https://m.yunjiglobal.com/yunjibuyer/queryItemListByTimesId.json?activityTimesId=" + times.get(k) + "&pageNo=" + String.valueOf(page));
                     if (!MyUtil.isEmpty(ret)) {
                         if (ret.indexOf("itemList\":[]") != -1) {
                             break;
@@ -77,7 +93,7 @@ public class Spider {
                         if (name.size() != 0) {
                             for (int i = 0; i < name.size(); i++) {
                                 list.add(name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i));
-                                System.out.println( name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i));
+                                System.out.println(name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i));
                             }
                             page++;
                         }
@@ -86,51 +102,86 @@ public class Spider {
             }
         }
 
-       // ExcelUtils.writeExcel("云集抢购数据（"+ MyUtil.getDate("dd")+"）.xlsx",list);
+        ExcelUtils.writeExcel("云集抢购数据（" + MyUtil.getDate("dd") + "）.xlsx", list);
         System.out.println("结束抓取！");
     }
 
-
     /**
-     * 根据时间和当前页数取数据
-     *
-     * @param time 抢购时间
-     * @param page 数据当前页数
-     * @return byte
+     * 取 myzebravip 限时购数据。
      */
-    public static byte[] DetailData(String time, String page) {
-        StringBuilder data = new StringBuilder(900);
-        String temp = "";
-        data.append("GET /yunjibuyer/queryItemListByTimesId.json?activityTimesId=" + time + "&pageNo=" + page + " HTTP/1.1\r\n");
-        data.append("Host: m.yunjiglobal.com\r\n");
-        data.append("Connection: keep-alive\r\n");
-        data.append("Accept: application/json, text/plain, */*\r\n");
-        data.append("X-Requested-With: XMLHttpRequest\r\n");
-        data.append("User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36\r\n");
-        data.append("Referer: https://m.yunjiglobal.com/yunjibuyer/static/vue-buyer/idc/index.html\r\n");
-        data.append("Accept-Language: en-US,en;q=0.9\r\n");
-        data.append("\r\n");
-        data.append("\r\n");
-        data.append("\r\n");
-        return data.toString().getBytes();
+    private static void myzebravip() {
+        OkHttp okHttp = new OkHttp();
+        String ret = "";
+        String time = "";
+        ArrayList<String> times = null;
+        int page = 0;
+
+        System.out.println("开始抓取！");
+        ArrayList<String> list = new ArrayList<>();
+        String cloum = "名称|简介|现价|原价|赚";
+        list.add(cloum);
+        System.out.println(cloum);
+        //先取出所有抢购时间
+        //ret = nets.goPost("m.yunjiglobal.com", 443, getTime());
+        //                     https://m.yunjiglobal.com/yunjibuyer/queryAllActivityTimesList.json
+        HashMap<String, String> header = new HashMap<>();
+        HashMap<String, String> body = new HashMap<>();
+        header.put("imei", "0d64935528e84ba0f2cef8cbee470c4a");
+        header.put("platform", "301");
+        header.put("requestid", "34f289b2c70707839b10a3d916b5a4bf");
+        header.put("sessionid", "6648c1af15eb42c6b301de6ddf846ab0");
+
+        body.put("type", "12");
+
+        ret = okHttp.goPost("https://prodapi.myzebravip.com/api/hot/index", header, body);
+        if (!MyUtil.isEmpty(ret)) {
+            times = MyUtil.midWordAll("\"id\":", ",\"", ret);
+            ArrayList<String> buyTime = MyUtil.midWordAll("startTime\":\"", "\",\"", ret);
+            //ArrayList showTime=MyUtil.midWordAll("alias\":\"","\",\"",ret);
+            //ArrayList showTime2=MyUtil.midWordAll("dateTime\":\"","\",\"",ret);
+            //System.out.println(times);
+            //String[] buyTime=new String[]{"昨日19:00","昨日21:00","08:30","9:00","10:00","11:00","12:00","13:00","14:00","16:00","17:00","19:00","21:00","明天"};
+            //循环取出所有页数数据。
+            for (int k = 0; k < buyTime.size(); k++) {
+                page = 0;
+                list.add("抢购时间：" + buyTime.get(k));
+                //list.add("抢购时间："+ showTime.get(k-1).toString() + " " + showTime2.get(k-1).toString());//MyUtil.timestampToDate(buyTime.get(k).toString()));
+                System.out.println(list.get(list.size() - 1));
+                //System.out.println("抢购时间："+ showTime.get(k-1).toString() + " " + showTime2.get(k-1).toString());//MyUtil.timestampToDate(buyTime.get(k).toString()));
+                body.clear();
+
+                while (true) {
+                    //id=7140&startTime=2019-02-27%2010%3A00%3A00
+                    body.put("id", times.get(k));
+                    body.put("startTime", buyTime.get(k));
+                    ret = okHttp.goPost("https://prodapi.myzebravip.com/api/hot/list", header, body);
+                    if (!MyUtil.isEmpty(ret)) {
+                       /* if (ret.indexOf("itemList\":[]") != -1) {
+                            break;
+                        }*/
+                        ArrayList<String> name = MyUtil.midWordAll("name\":\"", "\",\"", ret);
+                        ArrayList<String> spot = MyUtil.midWordAll("promotionText\":\"", "\",\"", ret);
+                        ArrayList<String> nowprice = MyUtil.midWordAll("memberPrice\":\"", "\",\"", ret);
+                        ArrayList<String> price = MyUtil.midWordAll("salePrice\":\"", "\",\"", ret);
+                        ArrayList<String> earn = MyUtil.midWordAll("shareProfits\":\"", "\",\"", ret);
+
+                        if (name.size() != 0) {
+                            for (int i = 0; i < name.size(); i++) {
+                                list.add(name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i) + "|" + earn.get(i));
+                                //System.out.println( name.get(i) + "|" + spot.get(i) + "|" + nowprice.get(i) + "|" + price.get(i)+ "|" + earn.get(i));
+                                System.out.println(list.get(list.size() - 1));
+                            }
+                            page++;
+                        }
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        ExcelUtils.writeExcel("myzebravip抢购数据（" + MyUtil.getDate("dd") + "）.xlsx", list);
+        System.out.println("结束抓取！");
     }
-
-
-    public static byte[] getTime() {
-        StringBuilder data = new StringBuilder(900);
-        String temp = "";
-        data.append("GET /yunjibuyer/queryAllActivityTimesList.json HTTP/1.1\r\n");
-        data.append("Host: m.yunjiglobal.com\r\n");
-        data.append("Connection: keep-alive\r\n");
-        data.append("Accept: application/json, text/plain, */*\r\n");
-        data.append("X-Requested-With: XMLHttpRequest\r\n");
-        data.append("User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36\r\n");
-        data.append("Referer: https://m.yunjiglobal.com/yunjibuyer/static/vue-buyer/idc/index.html\r\n");
-        data.append("Accept-Language: en-US,en;q=0.9\r\n");
-        data.append("\r\n");
-        data.append("\r\n");
-        return data.toString().getBytes();
-    }
-
 
 }

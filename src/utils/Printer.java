@@ -1,6 +1,6 @@
 package utils;
 
 public interface Printer {
-	public void print(String data);
-	
+    public void print(String data);
+
 }

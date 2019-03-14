@@ -592,10 +592,11 @@ public class MyUtil {
 
     /**
      * 根据指定格式返回时间。
+     *
      * @param format 格式：yyyy/MM/dd HH:mm:ss
      * @return
      */
-    public static String getDate(String format){
+    public static String getDate(String format) {
 
         SimpleDateFormat formatter = new SimpleDateFormat(format);
         Date currentTime = new Date();//得到当前系统时间
