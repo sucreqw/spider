@@ -7,31 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d15b41b-9f85-4bef-aace-4c753f1bfead" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Haitao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/spider/Spider.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/spider/Spider.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/spider/myNet/Nets.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/spider/myNet/Nets.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/spider/myNet/OkHttp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/spider/myNet/OkHttp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/spider/utils/ExcelUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/spider/utils/ExcelUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/spider/utils/JsUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/spider/utils/JsUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/spider/utils/MyUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/spider/utils/MyUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/spider/utils/RsaUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/spider/utils/RsaUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/spider/utils/SinaCapchaUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/spider/utils/SinaCapchaUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/spider/utils/SinaUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/spider/utils/SinaUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/spider/utils/accounts.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/spider/utils/accounts.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Spider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Spider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/myNet/Nets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myNet/Nets.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/myNet/OkHttp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/myNet/OkHttp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/ExcelUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/ExcelUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/JsUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/JsUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/MyUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/MyUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Printer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Printer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/RsaUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/RsaUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/SinaCapchaUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/SinaCapchaUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/SinaUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/SinaUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/accounts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/accounts.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Spider.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="120" column="37" selection-start-line="120" selection-start-column="24" selection-end-line="120" selection-end-column="37" />
+            <state relative-caret-position="-108">
+              <caret line="190" column="7" lean-forward="true" selection-start-line="190" selection-start-column="7" selection-end-line="190" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -57,8 +33,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Haitao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="74" lean-forward="true" selection-start-line="74" selection-end-line="74" />
+            <state relative-caret-position="1050">
+              <caret line="74" selection-start-line="74" selection-end-line="74" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -66,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="157" selection-start-line="22" selection-start-column="157" selection-end-line="22" selection-end-column="157" />
+            <state relative-caret-position="360">
+              <caret line="24" column="7" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -99,7 +75,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/myNet/OkHttp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
+            <state relative-caret-position="255">
               <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -111,7 +87,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar://$PROJECT_DIR$/okhttp-3.12.1.jar!/okhttp3/OkHttpClient.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="778">
+            <state relative-caret-position="8775">
               <caret line="700" selection-start-line="700" selection-end-line="700" />
             </state>
           </provider>
@@ -120,7 +96,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar://$PROJECT_DIR$/okhttp-3.12.1.jar!/okhttp3/internal/Util.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="778">
+            <state relative-caret-position="8940">
               <caret line="649" selection-start-line="649" selection-end-line="649" />
             </state>
           </provider>
@@ -151,9 +127,9 @@
         <option value="$PROJECT_DIR$/src/utils/ExcelUtils.java" />
         <option value="$PROJECT_DIR$/src/utils/MyUtil.java" />
         <option value="$PROJECT_DIR$/src/myNet/OkHttp.java" />
-        <option value="$PROJECT_DIR$/src/Spider.java" />
         <option value="$PROJECT_DIR$/src/Haitao.java" />
         <option value="$PROJECT_DIR$/test.html" />
+        <option value="$PROJECT_DIR$/src/Spider.java" />
       </list>
     </option>
   </component>
@@ -174,6 +150,11 @@
             <path>
               <item name="spider" type="b2602c69:ProjectViewProjectNode" />
               <item name="spider" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="spider" type="b2602c69:ProjectViewProjectNode" />
+              <item name="spider" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -245,17 +226,18 @@
       <workItem from="1551407072249" duration="1040000" />
       <workItem from="1551747528794" duration="835000" />
       <workItem from="1552097148332" duration="9640000" />
+      <workItem from="1553132500558" duration="5290000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49032000" />
+    <option name="totallyTimeSpent" value="54322000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="977" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2683706" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27103302" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -265,7 +247,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.37704918" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.44067797" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.44067797" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -330,6 +312,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Haitao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/ExcelUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
@@ -349,7 +341,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/myNet/OkHttp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
+        <state relative-caret-position="255">
           <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -357,44 +349,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/okhttp-3.12.1.jar!/okhttp3/internal/Util.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="778">
-          <caret line="649" selection-start-line="649" selection-end-line="649" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/okhttp-3.12.1.jar!/okhttp3/OkHttpClient.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="778">
+        <state relative-caret-position="8775">
           <caret line="700" selection-start-line="700" selection-end-line="700" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Spider.java">
+    <entry file="jar://$PROJECT_DIR$/okhttp-3.12.1.jar!/okhttp3/internal/Util.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="120" column="37" selection-start-line="120" selection-start-column="24" selection-end-line="120" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Haitao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="74" lean-forward="true" selection-start-line="74" selection-end-line="74" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="8940">
+          <caret line="649" selection-start-line="649" selection-end-line="649" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="157" selection-start-line="22" selection-start-column="157" selection-end-line="22" selection-end-column="157" />
+        <state relative-caret-position="360">
+          <caret line="24" column="7" lean-forward="true" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Spider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-108">
+          <caret line="190" column="7" lean-forward="true" selection-start-line="190" selection-start-column="7" selection-end-line="190" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

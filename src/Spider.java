@@ -28,12 +28,15 @@ public class Spider {
             //myzebravip();
 
             //取55海淘 优惠折扣
-            Haitao haitao=new Haitao();
-            haitao.getDiscount();
+            /*Haitao haitao=new Haitao();
+            haitao.getDiscount();*/
 
             /*OkHttp okHttp=new OkHttp();
             HashMap<String,String> map=new HashMap();
             map.put("nick","test");*/
+
+            //云集新品热销榜
+            queryHistoryTrackItems();
 
         } else {
             ArrayList<String> list = new ArrayList();
@@ -184,4 +187,47 @@ public class Spider {
         System.out.println("结束抓取！");
     }
 
+    /**
+     * 云集新品热销榜
+     */
+    private static void queryHistoryTrackItems(){
+        OkHttp okHttp = new OkHttp();
+        String ret = "";
+        ArrayList<String> total = new ArrayList<>(); ;
+        System.out.println("开始抓取！");
+        total.add("名称|详情|价格|原价");
+        String[] trackType={"美食榜","服饰榜","美妆榜","家居榜","更多新品"};
+        String[] trackTypeNum={"4","6","3","5","7"};
+        for(int k=0;k<trackTypeNum.length;k++) {
+
+            total.add(trackType[k]);
+            for (int page = 0; page < 3; page++) {
+                int curosr = page * 10;
+                String url = "https://yunjioperate.yunjiglobal.com/yunjioperateapp/subject/queryHistoryTrackItems.json?subjectId=66720&trackType="+ trackTypeNum[k] +"&pageIndex=" + page + "&storeType=1&max=30&cursor=" + curosr + "&hideNoStock=1&appCont=0&isPersonality=0";
+                ret = okHttp.goGet(url);
+                if (!MyUtil.isEmpty(ret)) {
+                    //System.out.println(ret);
+                    ArrayList<String> name = MyUtil.midWordAll("activityName\":\"", "\",\"", ret);
+                    ArrayList<String> productSpot = MyUtil.midWordAll("productSpot\":\"", "\",\"", ret);
+                    ArrayList<String> nowPrice = MyUtil.midWordAll("itemPrice\":", ",\"", ret);
+                    ArrayList<String> oldPrice = MyUtil.midWordAll("itemVipPrice\":", ",\"", ret);
+
+                    total.add("第" + page + "页");
+                    String spot = "";
+                    for (int i = 0; i < name.size(); i++) {
+                        if (!MyUtil.isEmpty(productSpot) && productSpot.size() > i) {
+                            spot = productSpot.get(i);
+                        }else{
+                            spot="";
+                        }
+                        total.add(name.get(i) + "|" + spot + "|" + nowPrice.get(i) + "|" + oldPrice.get(i));
+                    }
+
+                }
+            }
+        }
+        ExcelUtils.writeExcel("云集云集新品热销榜" + MyUtil.getDate("dd") + ".xlsx",total);
+        System.out.println("结束抓取！");
+
+    }
 }
