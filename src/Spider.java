@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 友米乐公司爬虫工具类
@@ -36,7 +37,10 @@ public class Spider {
             map.put("nick","test");*/
 
             //云集新品热销榜
-            queryHistoryTrackItems();
+            //queryHistoryTrackItems();
+
+            //爆品的其它类别数据
+            zebravip_rest();
 
         } else {
             ArrayList<String> list = new ArrayList();
@@ -229,5 +233,103 @@ public class Spider {
         ExcelUtils.writeExcel("云集云集新品热销榜" + MyUtil.getDate("dd") + ".xlsx",total);
         System.out.println("结束抓取！");
 
+    }
+
+    /**
+     * 爆品 其它类别数据。
+     */
+    private static void zebravip_rest(){
+        //尖货爆品
+        zebravip_jh("https://wap.myzebravip.com/lego/1552986133567.html?isHide=1&uid=3044","尖货爆品");
+        //美妆个护
+        zebravip_jh("https://wap.myzebravip.com/lego/1552887805496.html?isHide=1&uid=2960","美妆个护");
+        //量贩会场
+        zebravip_jh("https://wap.myzebravip.com/lego/1552877971645.html?isHide=1&uid=2941","量贩会场");
+        //新会员必入
+        zebravip_jh("https://wap.myzebravip.com/lego/1552878034786.html?isHide=1&uid=2939","新会员必入");
+        //春野食记
+        zebravip_jh("https://wap.myzebravip.com/lego/1550474900431.html?isHide=1&uid=1143","春野食记");
+        //DW指定入驻
+        zebravip_jh("https://wap.myzebravip.com/lego/1552715262623.html?isHide=1&uid=2903","DW指定入驻");
+
+
+    }
+
+    /**
+     * 尖货爆品
+     */
+    private static void zebravip_jh(String url,String filename){
+        System.out.println("开始抓取。");
+        ArrayList<String> totals=new ArrayList<>();
+        totals.add("名称|现价|原价|会员价");
+        //先取尖货爆品所有类别。
+        OkHttp okHttp = new OkHttp();
+        String ret = "";
+        ret=okHttp.goGet(url);
+        if(!MyUtil.isEmpty(ret)){
+            String titles=MyUtil.midWord("floorList:[","}]",ret);
+            ArrayList<String> title=MyUtil.midWordAll("{\"title\":\"","\"}",ret);
+            ArrayList<String> titleId=MyUtil.midWordAll("ids:\"","\" ,",ret);
+
+            for(int i=0; i<titleId.size();i++){
+
+                //类别名称
+                totals.add(i<title.size()?title.get(i):"");
+                ret=zebravip_detail(titleId.get(i));
+
+                if(!MyUtil.isEmpty(ret)){
+                    ArrayList<String> names=MyUtil.midWordAll("name\":\"","\",\"",ret);
+                    ArrayList<String> memberPrice=MyUtil.midWordAll("memberPrice\":\"","\",\"",ret);
+                    ArrayList<String> nowPrice=MyUtil.midWordAll("salesPrice\":\"","\",\"",ret);
+                    ArrayList<String> oldPrice=MyUtil.midWordAll("originalPrice\":\"","\",\"",ret);
+                    for(int k=0;k<names.size();k++){
+                        totals.add(names.get(k) + "|" + nowPrice.get(k)+ "|" + oldPrice.get(k) + "|"+ memberPrice.get(k));
+                    }
+                }
+            }
+        }
+        ouputExcel(totals,filename);
+        System.out.println("结束抓取。");
+    }
+
+    /**
+     * 根据类别id取详细的商品内容。
+     * @param id 包含类别id
+     * @return 商品数组
+     */
+    private static String zebravip_detail(String id){
+        return id.startsWith("AG")?zebravip_AG("https://cmsapinew.51bushou.com/api/cms/goods/queryBySaleCode?saleCode="+ id +"&activityIds=&pageToken=legopg_3044_1553180641886"):zebravip_SI("https://selection.myzebravip.com/api/selection/item?code="+id);
+    }
+
+    /**
+     * AG开头的url取数据
+     * @param url 包含类别id 的url
+     * @return
+     */
+    private static String zebravip_AG(String url){
+        return getData(url);
+    }
+
+    /**
+     * SI开头的url取数据
+     * @param url 包含类别id 的url
+     * @return
+     */
+    private static String zebravip_SI(String url){
+        return getData(url);
+    }
+
+    /**
+     * 根据url返回网页数据。
+     * @param url
+     * @return
+     */
+    private static String getData(String url){
+        OkHttp okHttp = new OkHttp();
+        return okHttp.goGet(url);
+    }
+
+    private static void ouputExcel(ArrayList<String> list , String filename){
+        ExcelUtils.writeExcel(filename + MyUtil.getDate("dd") + ".xlsx",list);
     }
 }
